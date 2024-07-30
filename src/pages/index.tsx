@@ -8,6 +8,7 @@ import { LayoutContext } from "@/components/layout/layout";
 export default function Home() {
   const t = useTranslations();
   const { selectedListId } = useContext(LayoutContext);
+
   return (
     <main className="min-h-svh">
       <h1 className="text-center text-7xl">{t("test")}</h1>

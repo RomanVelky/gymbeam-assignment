@@ -20,6 +20,7 @@ export const LayoutContext = createContext<LayoutContextProps>({
 const Layout = ({ children }: LayoutProps) => {
   const { resolvedTheme, setTheme } = useTheme();
   const [selectedListId, setSelectedListId] = useState<number | null>(null);
+
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
     if (savedTheme) {

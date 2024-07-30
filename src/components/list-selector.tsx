@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { getLists } from "../lib/api-service";
+import { useLists } from "../contexts/ListContext";
 import {
   Select,
   SelectContent,
@@ -7,7 +6,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { List } from "@/types/mockapi-types";
 import { useTranslations } from "next-intl";
 
 interface ListSelectorProps {
@@ -15,21 +13,9 @@ interface ListSelectorProps {
 }
 
 const ListSelector = ({ onSelect }: ListSelectorProps) => {
-  const [lists, setLists] = useState<List[]>([]);
+  const { lists } = useLists();
   const t = useTranslations();
 
-  useEffect(() => {
-    const fetchLists = async () => {
-      try {
-        const response = await getLists();
-        setLists(response.data);
-      } catch (error) {
-        console.error("Error fetching lists:", error);
-      }
-    };
-
-    fetchLists();
-  }, []);
   return (
     <div className="w-full max-w-xs">
       <Select onValueChange={(value) => onSelect(Number(value))}>
@@ -48,4 +34,5 @@ const ListSelector = ({ onSelect }: ListSelectorProps) => {
     </div>
   );
 };
+
 export default ListSelector;
