@@ -1,6 +1,3 @@
-import LangButton from "@/components/lang-button";
-import ThemeButton from "@/components/theme-button";
-import { Button } from "@/components/ui/button";
 import { GetStaticProps } from "next";
 import { useTranslations } from "next-intl";
 
@@ -9,9 +6,6 @@ export default function Home() {
   return (
     <main className="min-h-svh">
       <h1 className="text-center text-7xl">{t("test")}</h1>
-      <Button>Normal button </Button>
-      <ThemeButton />
-      <LangButton />
     </main>
   );
 }
