@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+import { getLists } from "../lib/api-service";
 import {
   Select,
   SelectContent,
@@ -5,19 +7,42 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { List } from "@/types/mockapi-types";
+import { useTranslations } from "next-intl";
 
-const ListSelector = () => {
+interface ListSelectorProps {
+  onSelect: (listId: number) => void;
+}
+
+const ListSelector = ({ onSelect }: ListSelectorProps) => {
+  const [lists, setLists] = useState<List[]>([]);
+  const t = useTranslations();
+
+  useEffect(() => {
+    const fetchLists = async () => {
+      try {
+        const response = await getLists();
+        setLists(response.data);
+      } catch (error) {
+        console.error("Error fetching lists:", error);
+      }
+    };
+
+    fetchLists();
+  }, []);
   return (
     <div className="w-full max-w-xs">
-      <Select>
+      <Select onValueChange={(value) => onSelect(Number(value))}>
         <SelectTrigger>
-          <SelectValue placeholder="Select a todo list" />
+          <SelectValue placeholder={t("list-select")} />
         </SelectTrigger>
 
         <SelectContent>
-          <SelectItem value="0">List 1</SelectItem>
-          <SelectItem value="1">List 2</SelectItem>
-          <SelectItem value="2">List 3</SelectItem>
+          {lists.map((list) => (
+            <SelectItem key={list.id} value={list.id.toString()}>
+              {list.name}
+            </SelectItem>
+          ))}
         </SelectContent>
       </Select>
     </div>
