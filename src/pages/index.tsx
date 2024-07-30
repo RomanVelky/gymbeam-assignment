@@ -1,17 +1,27 @@
-import { Inter } from "next/font/google";
-import { Button } from "@/components/ui/button";
+import LangButton from "@/components/lang-button";
 import ThemeButton from "@/components/theme-button";
-const inter = Inter({ subsets: ["latin"] });
+import { Button } from "@/components/ui/button";
+import { GetStaticProps } from "next";
+import { useTranslations } from "next-intl";
 
 export default function Home() {
+  const t = useTranslations();
   return (
-    <main
-      className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}>
-      <h1 className="text-9xl text-center">
-        PLACEHOLDER PLACEHOLDER PLACEHOLDER
-      </h1>
+    <main className="min-h-svh">
+      <h1 className="text-center text-7xl">{t("test")}</h1>
       <Button>Normal button </Button>
       <ThemeButton />
+      <LangButton />
     </main>
   );
 }
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  const messages = (await import(`../messages/${context.locale}.json`)).default;
+
+  return {
+    props: {
+      messages,
+    },
+  };
+};
