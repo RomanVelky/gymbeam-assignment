@@ -29,45 +29,47 @@ const Home = () => {
   if (isPending) return <h1>Loading...</h1>;
   if (isError) return <h1>Error</h1>;
   return (
-    <main className="min-h-svh flex flex-col items-center gap-y-8">
-      <h1 className="text-center text-7xl">{t("test")}</h1>
-      <Dialog>
-        <DialogTrigger asChild>
-          <Button>Manage Lists</Button>
-        </DialogTrigger>
-        <DialogContent className="max-w-[300px] sm:max-w-[300px] lg:max-w-[450px] overflow-auto lg:max-h-fit max-h-screen rounded-lg">
-          <DialogHeader>
-            <DialogTitle>Manage Lists</DialogTitle>
-            <DialogDescription>
-              Make changes to your lists here. Click exit when you are done.
-            </DialogDescription>
-          </DialogHeader>
-          <div className=" py-4">
-            <div className=" items-center ">
-              <ListManager lists={data} />
+    <main className="min-h-svh flex flex-col items-center gap-y-4">
+      <div className="flex gap-4 justify-center">
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button>Manage Lists</Button>
+          </DialogTrigger>
+          <DialogContent className="max-w-[300px] sm:max-w-[300px] lg:max-w-[450px] overflow-auto lg:max-h-fit max-h-screen rounded-lg">
+            <DialogHeader>
+              <DialogTitle>Manage Lists</DialogTitle>
+              <DialogDescription>
+                Make changes to your lists here. Click exit when you are done.
+              </DialogDescription>
+            </DialogHeader>
+            <div className=" py-4">
+              <div className=" items-center ">
+                <ListManager lists={data} />
+              </div>
             </div>
-          </div>
-        </DialogContent>
-      </Dialog>
+          </DialogContent>
+        </Dialog>
 
-      <Dialog>
-        <DialogTrigger asChild>
-          <Button>Add Todo</Button>
-        </DialogTrigger>
-        <DialogContent className="max-w-[300px] sm:max-w-[300px] lg:max-w-[450px] max-h-screen lg:max-h-fit overflow-auto rounded-lg">
-          <DialogHeader>
-            <DialogTitle>Add Todo</DialogTitle>
-            <DialogDescription>Make your Todo</DialogDescription>
-          </DialogHeader>
-          <div className=" py-4">
-            <div className=" items-center ">
-              <AddTodo listId={selectedListId ?? 1} />
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button>Add Todo</Button>
+          </DialogTrigger>
+          <DialogContent className="max-w-[300px] sm:max-w-[300px] lg:max-w-[450px] max-h-screen lg:max-h-fit overflow-auto rounded-lg">
+            <DialogHeader>
+              <DialogTitle>Add Todo</DialogTitle>
+              <DialogDescription>Make your Todo</DialogDescription>
+            </DialogHeader>
+            <div className=" py-4">
+              <div className=" items-center ">
+                <AddTodo listId={selectedListId ?? 1} />
+              </div>
             </div>
-          </div>
-        </DialogContent>
-      </Dialog>
+          </DialogContent>
+        </Dialog>
+      </div>
 
       <ListSelector onSelect={handleSelect} />
+
       <TodoList listId={selectedListId ?? 1} />
     </main>
   );
