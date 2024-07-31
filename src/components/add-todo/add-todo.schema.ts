@@ -19,3 +19,5 @@ export const todoSchema = z.object({
 });
 
 export type TodoFormData = z.infer<typeof todoSchema>;
+
+//todo.schema.ts
