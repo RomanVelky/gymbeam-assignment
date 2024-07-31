@@ -1,4 +1,6 @@
-import { useLists } from "../contexts/ListContext";
+import { useQuery } from "@tanstack/react-query";
+import { api } from "@/lib/api-service";
+import { List } from "@/types/mockapi-types";
 import {
   Select,
   SelectContent,
@@ -13,17 +15,31 @@ interface ListSelectorProps {
 }
 
 const ListSelector = ({ onSelect }: ListSelectorProps) => {
-  const { lists } = useLists();
+  const {
+    data: lists = [],
+    isPending,
+    isError,
+  } = useQuery({
+    queryKey: ["lists"],
+    queryFn: async () => {
+      const response = await api.get<List[]>("/lists");
+      return response.data;
+    },
+  });
+
   const t = useTranslations();
 
+  if (isPending) return <p>Loading...</p>;
+  if (isError) return <p>Error fetching lists</p>;
+
   return (
-    <div className="w-full max-w-xs">
+    <div className="w-full max-w-xs ">
       <Select onValueChange={(value) => onSelect(Number(value))}>
         <SelectTrigger>
           <SelectValue placeholder={t("list-select")} />
         </SelectTrigger>
 
-        <SelectContent>
+        <SelectContent className="h-[200px]">
           {lists.map((list) => (
             <SelectItem key={list.id} value={list.id.toString()}>
               {list.name}

@@ -37,7 +37,7 @@ const TodoList: React.FC<TodoListProps> = ({
 
   return (
     <div>
-      <Card className="w-[350px]">
+      <Card className="sm:max-w-[250px] lg:max-w-[400px]">
         <CardHeader>
           <CardTitle>Manage TODOS</CardTitle>
         </CardHeader>
