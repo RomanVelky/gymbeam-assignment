@@ -3,6 +3,7 @@ import { useTranslations } from "next-intl";
 import { useGetList } from "@/hooks/api/useGetLists";
 import { Button } from "@/components/ui/button";
 import ListManager from "@/components/list-manager";
+import { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -12,18 +13,21 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import ListSelector from "@/components/list-selector";
+import AddTodo from "@/components/add-todo/add-todo";
+import TodoList from "@/components/todo-list";
 
 const Home = () => {
   const t = useTranslations();
   const { data, isPending, isError } = useGetList();
-
-  if (isPending) return <h1>Loading...</h1>;
-  if (isError) return <h1>Error</h1>;
+  const [selectedListId, setSelectedListId] = useState<number | null>(null);
 
   const handleSelect = (listId: number) => {
     console.log("Selected list ID:", listId);
+    setSelectedListId(listId);
   };
 
+  if (isPending) return <h1>Loading...</h1>;
+  if (isError) return <h1>Error</h1>;
   return (
     <main className="min-h-svh flex flex-col items-center gap-y-8">
       <h1 className="text-center text-7xl">{t("test")}</h1>
@@ -46,6 +50,8 @@ const Home = () => {
         </DialogContent>
       </Dialog>
       <ListSelector onSelect={handleSelect} />
+      <TodoList listId={selectedListId ?? 0} />
+      <AddTodo listId={selectedListId ?? 0} />
     </main>
   );
 };

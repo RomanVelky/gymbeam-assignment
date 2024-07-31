@@ -39,7 +39,7 @@ const ListSelector = ({ onSelect }: ListSelectorProps) => {
           <SelectValue placeholder={t("list-select")} />
         </SelectTrigger>
 
-        <SelectContent className="h-[200px]">
+        <SelectContent className="max-h-[200px]">
           {lists.map((list) => (
             <SelectItem key={list.id} value={list.id.toString()}>
               {list.name}

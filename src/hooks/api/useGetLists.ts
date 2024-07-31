@@ -1,5 +1,4 @@
 import { useQuery } from "@tanstack/react-query";
-import axios, { AxiosResponse } from "axios";
 import { api } from "@/lib/api-service";
 import { List } from "@/types/mockapi-types";
 

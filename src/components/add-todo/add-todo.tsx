@@ -1,12 +1,11 @@
-import { useState, useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { createTodo, updateTodo } from "@/lib/api-service";
 import { Todo } from "@/types/mockapi-types";
 import { todoSchema, TodoFormData } from "./add-todo.schema";
 import { Card, CardContent } from "@/components/ui/card";
+import { useAddTodo } from "@/hooks/api/useAddTodo";
 import {
   Form,
   FormControl,
@@ -24,21 +23,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-const AddTodo = ({
-  listId,
-  onAdd,
-  todoToEdit,
-  onEdit,
-  clearEdit,
-}: {
+interface AddTodoProps {
   listId: number;
-  onAdd: (todo: Todo) => void;
-  todoToEdit?: Todo | null;
-  onEdit?: (todo: Todo) => void;
   clearEdit?: () => void;
-}) => {
-  const [isEditMode, setIsEditMode] = useState(false);
+}
 
+const AddTodo = ({ listId, clearEdit }: AddTodoProps) => {
   const form = useForm<TodoFormData>({
     mode: "onChange",
     resolver: zodResolver(todoSchema),
@@ -55,116 +45,25 @@ const AddTodo = ({
     },
   });
 
-  // useEffect(() => {
-  //   if (todoToEdit) {
-  //     setIsEditMode(true);
-  //     form.reset({
-  //       title: todoToEdit.title,
-  //       description: todoToEdit.description,
-  //       tags: todoToEdit.tags,
-  //       estimatedTime: todoToEdit.estimatedTime,
-  //       actualTimeSpent: todoToEdit.actualTimeSpent,
-  //       completed: todoToEdit.completed,
-  //       priority: (todoToEdit.priority as "low" | "medium" | "high") || "low",
-  //       dueDate: todoToEdit.dueDate,
-  //     });
-  //   } else {
-  //     setIsEditMode(false);
-  //   }
-  // }, [todoToEdit, form]);
-
-  useEffect(() => {
-    if (todoToEdit) {
-      setIsEditMode(true);
-      console.log("todoToEdit received:", todoToEdit); // Log the received todoToEdit
-      console.log("form reset to", todoToEdit);
-      form.reset({
-        title: todoToEdit.title,
-        description: todoToEdit.description,
-        tags: todoToEdit.tags,
-        estimatedTime: todoToEdit.estimatedTime,
-        actualTimeSpent: todoToEdit.actualTimeSpent,
-        completed: todoToEdit.completed,
-        priority: (todoToEdit.priority as "low" | "medium" | "high") || "low",
-        dueDate: todoToEdit.dueDate,
-      });
-    } else {
-      setIsEditMode(false);
-      console.log("No todoToEdit, resetting to default"); // Log when no todoToEdit
-      form.reset({
-        title: "",
-        description: "",
-        tags: [],
-        estimatedTime: 0,
-        actualTimeSpent: 0,
-        completed: false,
-        priority: "low",
-        dueDate: undefined,
-        listId: listId,
-      });
-    }
-  }, [todoToEdit, form, listId]);
-
-  // const onSubmit = async (data: TodoFormData) => {
-  //   try {
-  //     if (isEditMode && todoToEdit) {
-  //       const updatedTodo = { ...todoToEdit, ...data };
-  //       const response = await updateTodo(todoToEdit.id, updatedTodo);
-  //       if (onEdit) onEdit(response.data);
-  //     } else {
-  //       const response = await createTodo({
-  //         ...data,
-  //         completed: data.completed ?? false,
-  //         estimatedTime: data.estimatedTime ?? 0,
-  //         actualTimeSpent: data.actualTimeSpent ?? 0,
-  //         comments: [],
-  //         priority: data.priority ?? "low",
-  //         listId: listId,
-  //       });
-  //       onAdd(response.data);
-  //     }
-  //     form.reset();
-  //     if (clearEdit) clearEdit();
-  //   } catch (error) {
-  //     console.error("Error submitting todo:", error);
-  //     console.log("Data that caused the error:", data);
-  //   }
-  // };
+  const { mutate: addTodo } = useAddTodo();
 
   const onSubmit = async (data: TodoFormData) => {
     try {
-      if (isEditMode && todoToEdit) {
-        console.log("updated todo");
-        await updateTodo(todoToEdit.id, {
-          title: data.title,
-          description: data.description,
-          priority: data.priority,
-          dueDate: data.dueDate,
-          tags: data.tags,
-          completed: data.completed,
-          estimatedTime: data.estimatedTime,
-          actualTimeSpent: data.actualTimeSpent,
-          listId: listId,
-        });
-        if (onEdit) onEdit({ ...todoToEdit, ...data });
-      } else {
-        console.log("created todo");
-        const response = await createTodo({
-          ...data,
-          completed: data.completed ?? false,
-          estimatedTime: data.estimatedTime ?? 0,
-          actualTimeSpent: data.actualTimeSpent ?? 0,
-          comments: [],
-          priority: data.priority ?? "low",
-          listId: listId,
-        });
-        //onAdd(response.data);
-      }
+      const newTodo = {
+        ...data,
+        completed: data.completed ?? false,
+        estimatedTime: data.estimatedTime ?? 0,
+        actualTimeSpent: data.actualTimeSpent ?? 0,
+        comments: [],
+        priority: data.priority ?? "low",
+        listId: listId, // Ensure this is used correctly
+      };
+
+      await addTodo(newTodo);
       form.reset();
       if (clearEdit) clearEdit();
     } catch (error) {
       console.error("Error submitting todo:", error);
-      console.log("Data that caused the error:", data);
     }
   };
 
@@ -175,7 +74,7 @@ const AddTodo = ({
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-1">
               <h3 className="text-2xl font-semibold leading-none tracking-tight pt-6">
-                {isEditMode ? "Edit TODO" : "Add TODO"}
+                Add TODO
               </h3>
               <FormField
                 control={form.control}
@@ -325,9 +224,7 @@ const AddTodo = ({
                   </FormItem>
                 )}
               />
-              <Button type="submit">
-                {isEditMode ? "Edit Todo" : "Add Todo"}
-              </Button>
+              <Button type="submit">Add Todo</Button>
             </form>
           </Form>
         </CardContent>
