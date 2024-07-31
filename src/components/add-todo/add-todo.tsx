@@ -31,24 +31,6 @@ const AddTodo = ({
   listId: number;
   onAdd: (todo: Todo) => void;
 }) => {
-  // const onSubmit = async (data: TodoFormData) => {
-  //   try {
-  //     const response = await createTodo({
-  //       ...data,
-  //       completed: false,
-  //       estimatedTime: 0,
-  //       actualTimeSpent: 0,
-  //       comments: [],
-  //       listId: listId,
-  //     });
-  //     onAdd(response.data);
-  //     form.reset();
-  //   } catch (error) {
-  //     console.error("Error adding todo:", error);
-  //     console.log(data);
-  //   }
-  // };
-
   const onSubmit = async (data: TodoFormData) => {
     try {
       const response = await createTodo({
@@ -57,6 +39,7 @@ const AddTodo = ({
         estimatedTime: data.estimatedTime ?? 0,
         actualTimeSpent: data.actualTimeSpent ?? 0,
         comments: [],
+        priority: data.priority ?? "low",
         listId: listId,
       });
       onAdd(response.data);
@@ -66,26 +49,6 @@ const AddTodo = ({
       console.log("Data that caused the error:", data);
     }
   };
-
-  // const onSubmit = async (data: TodoFormData) => {
-  //   try {
-  //     const response = await createTodo({
-  //       ...data,
-  //       completed: data.completed ?? false, // Use the data's completed value if provided
-  //       estimatedTime: data.estimatedTime ?? 0,
-  //       actualTimeSpent: data.actualTimeSpent ?? 0,
-  //       comments: [],
-  //       listId: listId,
-  //     });
-  //     onAdd(response.data);
-  //     form.reset();
-  //   } catch (error) {
-  //     console.error("Error adding todo:", error);
-  //     // Optionally log the data that was being submitted
-  //     console.log("Data that caused the error:", data);
-  //     // Optionally, you might want to show a user-friendly message
-  //   }
-  // };
 
   const form = useForm<TodoFormData>({
     mode: "onChange",
@@ -97,7 +60,7 @@ const AddTodo = ({
       estimatedTime: 0,
       actualTimeSpent: 0,
       completed: false,
-      priority: undefined,
+      priority: "low",
       dueDate: undefined,
       listId: listId,
     },
@@ -108,7 +71,10 @@ const AddTodo = ({
       <Card>
         <CardContent>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-1">
+              <h3 className="text-2xl font-semibold leading-none tracking-tight pt-6">
+                Add TODO
+              </h3>
               <FormField
                 control={form.control}
                 name="title"
@@ -118,7 +84,6 @@ const AddTodo = ({
                     <FormControl>
                       <Input placeholder="title" {...field} />
                     </FormControl>
-                    <FormDescription>Title for the todo item</FormDescription>
                   </FormItem>
                 )}
               />
@@ -131,9 +96,6 @@ const AddTodo = ({
                     <FormControl>
                       <Input placeholder="description" {...field} />
                     </FormControl>
-                    <FormDescription>
-                      description for the todo item
-                    </FormDescription>
                   </FormItem>
                 )}
               />
@@ -157,9 +119,6 @@ const AddTodo = ({
                         </SelectContent>
                       </Select>
                     </FormControl>
-                    <FormDescription>
-                      priority for the todo item
-                    </FormDescription>
                   </FormItem>
                 )}
               />
@@ -180,7 +139,7 @@ const AddTodo = ({
                         }
                       />
                     </FormControl>
-                    <FormDescription>tags for the todo item</FormDescription>
+                    <FormDescription>example: dev,test,prod</FormDescription>
                   </FormItem>
                 )}
               />
@@ -209,7 +168,6 @@ const AddTodo = ({
                         }
                       />
                     </FormControl>
-                    <FormDescription>dueDate for the todo item</FormDescription>
                   </FormItem>
                 )}
               />
@@ -228,9 +186,6 @@ const AddTodo = ({
                         }
                       />
                     </FormControl>
-                    <FormDescription>
-                      estimatedTime for the todo item
-                    </FormDescription>
                   </FormItem>
                 )}
               />
@@ -250,9 +205,6 @@ const AddTodo = ({
                         }
                       />
                     </FormControl>
-                    <FormDescription>
-                      actualTimeSpent for the todo item
-                    </FormDescription>
                   </FormItem>
                 )}
               />
@@ -268,9 +220,6 @@ const AddTodo = ({
                         onCheckedChange={(checked) => field.onChange(checked)}
                       />
                     </FormControl>
-                    <FormDescription>
-                      Mark this if the todo item is completed.
-                    </FormDescription>
                   </FormItem>
                 )}
               />

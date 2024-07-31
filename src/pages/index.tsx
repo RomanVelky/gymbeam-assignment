@@ -57,7 +57,9 @@ const Home = () => {
             todos={todos}
             onDeleteTodo={handleDeleteTodo}
           />
-          <AddTodo listId={selectedListId} onAdd={handleAddTodo} />
+          <div className="pt-8">
+            <AddTodo listId={selectedListId} onAdd={handleAddTodo} />
+          </div>
         </div>
       ) : (
         <p>Please select a list to display todos.</p>
