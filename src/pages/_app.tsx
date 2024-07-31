@@ -5,9 +5,12 @@ import Layout from "@/components/layout/layout";
 import { NextIntlClientProvider } from "next-intl";
 import { useRouter } from "next/router";
 import { ListsProvider } from "@/contexts/ListContext";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
+  const queryClient = new QueryClient();
 
   return (
     <NextIntlClientProvider
@@ -18,11 +21,14 @@ export default function App({ Component, pageProps }: AppProps) {
         defaultTheme="system"
         enableSystem
         disableTransitionOnChange>
-        <ListsProvider>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </ListsProvider>
+        <QueryClientProvider client={queryClient}>
+          <ListsProvider>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+            <ReactQueryDevtools />
+          </ListsProvider>
+        </QueryClientProvider>
       </ThemeProvider>
     </NextIntlClientProvider>
   );

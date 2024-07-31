@@ -5,13 +5,17 @@ import { Trash } from "lucide-react";
 import { Pen } from "lucide-react";
 import { ScrollText } from "lucide-react";
 
-const TodoList = ({
+interface TodoListProps {
+  listId: number;
+  todos: Todo[]; // This should be an array of Todo
+  onDeleteTodo?: (todoId: number) => void;
+  onEditTodo?: (todo: Todo) => void;
+}
+
+const TodoList: React.FC<TodoListProps> = ({
   todos,
   onDeleteTodo,
-}: {
-  listId: number;
-  todos: Todo[];
-  onDeleteTodo?: (todoId: number) => void;
+  onEditTodo,
 }) => {
   const handleDeleteTodo = async (todoId: number) => {
     try {
@@ -20,6 +24,14 @@ const TodoList = ({
       }
     } catch (error) {
       console.error("Error deleting todo:", error);
+    }
+  };
+
+  const handleEditClick = (todo: Todo) => {
+    console.log("click trigered");
+    if (onEditTodo) {
+      console.log("on edit happend with", todo);
+      onEditTodo(todo);
     }
   };
 
@@ -78,7 +90,7 @@ const TodoList = ({
                         <Button>
                           <ScrollText />
                         </Button>
-                        <Button>
+                        <Button onClick={() => handleEditClick(todo)}>
                           <Pen />
                         </Button>
                         <Button onClick={() => handleDeleteTodo(todo.id)}>
