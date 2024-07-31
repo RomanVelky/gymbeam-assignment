@@ -22,47 +22,31 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useUpdateTodo } from "@/hooks/api/useUpdateTodo";
+import { Todo } from "@/types/mockapi-types";
 
 interface EditTodoProps {
-  todoId: number;
+  todo: Todo;
   onCancel: () => void;
 }
 
-const EditTodo = ({ todoId, onCancel }: EditTodoProps) => {
+const EditTodo = ({ todo, onCancel }: EditTodoProps) => {
   const {
     mutate: updateTodo,
     isPending: isUpdatePending,
     isError: isUpdateError,
   } = useUpdateTodo();
-  const {
-    data: todo,
-    isPending: isGetPending,
-    isError: isGetError,
-  } = useGetTodoById(todoId);
 
-  const defaultValues: TodoFormData = todo
-    ? {
-        title: todo.title,
-        description: todo.description || "",
-        tags: todo.tags || [],
-        estimatedTime: todo.estimatedTime || 0,
-        actualTimeSpent: todo.actualTimeSpent || 0,
-        completed: todo.completed || false,
-        priority: (todo.priority as "low" | "medium" | "high") || "low",
-        dueDate: todo.dueDate instanceof Date ? todo.dueDate : undefined,
-        listId: todo.listId,
-      }
-    : {
-        title: "",
-        description: "",
-        tags: [],
-        estimatedTime: 0,
-        actualTimeSpent: 0,
-        completed: false,
-        priority: "low",
-        dueDate: undefined,
-        listId: 0,
-      };
+  const defaultValues: TodoFormData = {
+    title: todo.title,
+    description: todo.description || "",
+    tags: todo.tags || [],
+    estimatedTime: todo.estimatedTime || 0,
+    actualTimeSpent: todo.actualTimeSpent || 0,
+    completed: todo.completed || false,
+    priority: (todo.priority as "low" | "medium" | "high") || "low",
+    dueDate: todo.dueDate instanceof Date ? todo.dueDate : undefined,
+    listId: todo.listId,
+  };
 
   const form = useForm<TodoFormData>({
     mode: "onChange",
@@ -81,8 +65,8 @@ const EditTodo = ({ todoId, onCancel }: EditTodoProps) => {
         priority: data.priority ?? "low",
       };
 
-      updateTodo({ todoId: todoId, data: updatedTodo });
-      onCancel(); // Call the onCancel callback after successful update
+      updateTodo({ todoId: todo.id, data: updatedTodo });
+      onCancel();
     } catch (error) {
       console.error("Error updating todo:", error);
     }

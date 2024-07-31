@@ -19,7 +19,7 @@ const TodoList: React.FC<TodoListProps> = ({ listId }) => {
   const { mutate: deleteTodo } = useDeleteTodo();
   const { mutate: updateTodo } = useUpdateTodo();
 
-  const [editingTodoId, setEditingTodoId] = useState<number | null>(null);
+  const [editingTodo, setEditingTodo] = useState<Todo | null>(null);
 
   if (isPending) return <div>Loading...</div>;
   if (isError) return <div>Error loading todos.</div>;
@@ -50,18 +50,18 @@ const TodoList: React.FC<TodoListProps> = ({ listId }) => {
     }
   };
 
-  const handleEditClick = (todoId: number) => {
-    setEditingTodoId(todoId);
+  const handleEditClick = (todo: Todo) => {
+    setEditingTodo(todo);
   };
 
   const handleCancelEdit = () => {
-    setEditingTodoId(null);
+    setEditingTodo(null);
   };
 
   return (
     <div>
-      {editingTodoId ? (
-        <EditTodo todoId={editingTodoId} onCancel={handleCancelEdit} />
+      {editingTodo ? (
+        <EditTodo todo={editingTodo} onCancel={handleCancelEdit} />
       ) : (
         <Card className="sm:max-w-[250px] lg:max-w-[400px]">
           <CardHeader>
@@ -125,7 +125,7 @@ const TodoList: React.FC<TodoListProps> = ({ listId }) => {
                           <div className="px-4">
                             <Button
                               className="w-full"
-                              onClick={() => handleEditClick(todo.id)}>
+                              onClick={() => handleEditClick(todo)}>
                               Edit
                             </Button>
                           </div>

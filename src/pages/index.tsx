@@ -61,14 +61,14 @@ const Home = () => {
           </DialogHeader>
           <div className=" py-4">
             <div className=" items-center ">
-              <AddTodo listId={selectedListId ?? 0} />
+              <AddTodo listId={selectedListId ?? 1} />
             </div>
           </div>
         </DialogContent>
       </Dialog>
 
       <ListSelector onSelect={handleSelect} />
-      <TodoList listId={selectedListId ?? 0} />
+      <TodoList listId={selectedListId ?? 1} />
     </main>
   );
 };
