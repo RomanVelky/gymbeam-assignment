@@ -2,7 +2,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Todo } from "@/types/mockapi-types";
 import { todoSchema, TodoFormData } from "./add-todo.schema";
 import { Card, CardContent } from "@/components/ui/card";
 import { useAddTodo } from "@/hooks/api/useAddTodo";
@@ -69,7 +68,7 @@ const AddTodo = ({ listId, clearEdit }: AddTodoProps) => {
 
   return (
     <>
-      <Card>
+      <Card className="max-w-sm">
         <CardContent>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-1">

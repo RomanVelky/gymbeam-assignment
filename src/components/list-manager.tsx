@@ -60,18 +60,25 @@ const ListManager = ({ lists }: ListManagerProps) => {
   return (
     <div>
       <ScrollArea className="h-[200px] sm:max-w-[250px] lg:max-w-[400px] rounded-md border p-4">
-        <ul className="flex flex-col gap-y-4">
-          {lists.map((list) => (
-            <div key={list.id} className="flex items-center justify-between">
-              <li>{list.name}</li>
-              <Button
-                onClick={() => handleDelete(list.id)}
-                disabled={isDeleting}>
-                <Trash />
-              </Button>
-            </div>
-          ))}
-        </ul>
+        {lists.length === 0 ? (
+          <p className="text-center">No lists were created.</p>
+        ) : (
+          <ul className="flex flex-col gap-y-2">
+            {lists.map((list) => (
+              <li
+                key={list.id}
+                className="flex items-center justify-between p-2">
+                <span>{list.name}</span>
+                <Button
+                  onClick={() => handleDelete(list.id)}
+                  disabled={isDeleting}
+                  className="ml-2">
+                  <Trash />
+                </Button>
+              </li>
+            ))}
+          </ul>
+        )}
       </ScrollArea>
       {deleteError && (
         <p className="text-red-500">

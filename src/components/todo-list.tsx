@@ -5,8 +5,8 @@ import { Todo } from "@/types/mockapi-types";
 import { Button } from "./ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Trash } from "lucide-react";
-import { Pen } from "lucide-react";
-import { ScrollText } from "lucide-react";
+import { X } from "lucide-react";
+import { Check } from "lucide-react";
 
 interface TodoListProps {
   listId: number;
@@ -100,11 +100,14 @@ const TodoList: React.FC<TodoListProps> = ({ listId }) => {
                         </div>
                         <div className="justify-between flex py-2 px-4 ">
                           <Button onClick={() => handleEditClick(todo)}>
-                            <Pen />
+                            {todo.completed ? <X /> : <Check />}
                           </Button>
                           <Button onClick={() => handleDeleteTodo(todo.id)}>
                             <Trash />
                           </Button>
+                        </div>
+                        <div className="px-4">
+                          <Button className="w-full">Edit</Button>
                         </div>
                       </CardContent>
                     </Card>
