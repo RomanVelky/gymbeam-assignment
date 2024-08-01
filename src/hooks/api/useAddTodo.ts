@@ -14,8 +14,7 @@ export const useAddTodo = () => {
     onError: (error) => {
       console.error("Error adding todo:", error);
     },
-    onSuccess: (data) => {
-      console.log("Todo added successfully:", data);
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["todos"] });
     },
   });

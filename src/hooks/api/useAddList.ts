@@ -14,8 +14,7 @@ export const useAddList = () => {
     onError: (error) => {
       console.error("Error adding list:", error);
     },
-    onSuccess: (data) => {
-      console.log("List added successfully:", data);
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["lists"] });
     },
   });

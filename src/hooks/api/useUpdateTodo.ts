@@ -20,8 +20,7 @@ export const useUpdateTodo = () => {
     onError: (error: Error) => {
       console.error("Error updating todo:", error.message);
     },
-    onSuccess: (data) => {
-      console.log("Todo updated successfully:", data);
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["todos"] });
     },
   });
