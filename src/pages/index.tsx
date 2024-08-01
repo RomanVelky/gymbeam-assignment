@@ -25,24 +25,22 @@ const Home = () => {
     setSelectedListId(listId);
   };
 
-  if (isPending) return <h1>Loading...</h1>;
-  if (isError) return <h1>Error</h1>;
+  if (isPending) return <h1>{t("global.loading")}</h1>;
+  if (isError) return <h1>{t("global.error")}</h1>;
   return (
     <main className="min-h-svh flex flex-col items-center gap-y-4">
-      <div className="max-w-xs min-w-full flex justify-center">
-        <ListSelector onSelect={handleSelect} />
+      <div className="text-center pt-4 pb-6 text-6xl">
+        {t("todo-list.manage")}
       </div>
       <div className="grid grid-cols-2 gap-4 justify-center max-w-xs w-full">
         <Dialog>
           <DialogTrigger asChild>
-            <Button className="w-full">Manage Lists</Button>
+            <Button className="w-full">{t("index.manage-lists")}</Button>
           </DialogTrigger>
           <DialogContent className="max-w-[300px] sm:max-w-[300px] lg:max-w-[450px] overflow-auto lg:max-h-fit max-h-screen rounded-lg">
             <DialogHeader>
-              <DialogTitle>Manage Lists</DialogTitle>
-              <DialogDescription>
-                Make changes to your lists here. Click exit when you are done.
-              </DialogDescription>
+              <DialogTitle>{t("index.manage-lists")}</DialogTitle>
+              <DialogDescription>{t("index.manage-lists-p")}</DialogDescription>
             </DialogHeader>
             <div className=" py-4">
               <div className=" items-center ">
@@ -54,12 +52,12 @@ const Home = () => {
 
         <Dialog>
           <DialogTrigger asChild>
-            <Button className="w-full">Add Todo</Button>
+            <Button className="w-full">{t("index.add-todo")}</Button>
           </DialogTrigger>
           <DialogContent className="max-w-[300px] sm:max-w-[300px] lg:max-w-[450px] max-h-screen lg:max-h-fit overflow-auto rounded-lg">
             <DialogHeader>
-              <DialogTitle>Add Todo</DialogTitle>
-              <DialogDescription>Make your Todo</DialogDescription>
+              <DialogTitle>{t("index.add-todo")}</DialogTitle>
+              <DialogDescription>{t("index.add-todo-p")}</DialogDescription>
             </DialogHeader>
             <div className=" py-4">
               <div className=" items-center ">
@@ -68,6 +66,9 @@ const Home = () => {
             </div>
           </DialogContent>
         </Dialog>
+      </div>
+      <div className="max-w-xs min-w-full flex justify-center">
+        <ListSelector onSelect={handleSelect} />
       </div>
 
       <TodoList listId={selectedListId ?? 1} />

@@ -21,6 +21,7 @@ import { useAddTodo } from "@/hooks/api/useAddTodo";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { TodoFormData, todoSchema } from "./todo.schema";
+import { useTranslations } from "next-intl";
 
 interface AddTodoProps {
   listId: number;
@@ -28,6 +29,7 @@ interface AddTodoProps {
 }
 
 const AddTodo = ({ listId, clearEdit }: AddTodoProps) => {
+  const t = useTranslations();
   const form = useForm<TodoFormData>({
     mode: "onChange",
     resolver: zodResolver(todoSchema),
@@ -58,7 +60,7 @@ const AddTodo = ({ listId, clearEdit }: AddTodoProps) => {
         listId: listId, // Ensure this is used correctly
       };
 
-      await addTodo(newTodo);
+      addTodo(newTodo);
       form.reset();
       if (clearEdit) clearEdit();
     } catch (error) {
@@ -67,168 +69,163 @@ const AddTodo = ({ listId, clearEdit }: AddTodoProps) => {
   };
 
   return (
-    <>
-      <Card className="max-w-sm">
-        <CardContent>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-1">
-              <h3 className="text-2xl font-semibold leading-none tracking-tight pt-6">
-                Add TODO
-              </h3>
-              <FormField
-                control={form.control}
-                name="title"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Title</FormLabel>
-                    <FormControl>
-                      <Input placeholder="title" {...field} />
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="description"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>description</FormLabel>
-                    <FormControl>
-                      <Input placeholder="description" {...field} />
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="priority"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>priority</FormLabel>
-                    <FormControl>
-                      <Select
-                        onValueChange={field.onChange}
-                        value={field.value}>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select priority" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="low">Low</SelectItem>
-                          <SelectItem value="medium">Medium</SelectItem>
-                          <SelectItem value="high">High</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="tags"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>tags</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="tags"
-                        {...field}
-                        onChange={(e) =>
-                          field.onChange(
-                            e.target.value.split(",").map((tag) => tag.trim())
-                          )
-                        }
-                      />
-                    </FormControl>
-                    <FormDescription>example: dev,test,prod</FormDescription>
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="dueDate"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>dueDate</FormLabel>
-                    <FormControl>
-                      <Input
-                        type="date"
-                        placeholder="dueDate"
-                        {...field}
-                        value={
-                          field.value
-                            ? new Date(field.value).toISOString().split("T")[0]
-                            : ""
-                        }
-                        onChange={(e) =>
-                          field.onChange(
-                            e.target.value
-                              ? new Date(e.target.value)
-                              : undefined
-                          )
-                        }
-                      />
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="estimatedTime"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>estimatedTime</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="estimatedTime"
-                        {...field}
-                        onChange={(e) =>
-                          field.onChange(parseFloat(e.target.value))
-                        }
-                      />
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="actualTimeSpent"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>actualTimeSpent</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="actualTimeSpent"
-                        {...field}
-                        value={field.value}
-                        onChange={(e) =>
-                          field.onChange(parseFloat(e.target.value))
-                        }
-                      />
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="completed"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Completed</FormLabel>
+    <div>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-1">
+          <FormField
+            control={form.control}
+            name="title"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel> {t("todo-forms.title")}</FormLabel>
+                <FormControl>
+                  <Input placeholder={t("todo-forms.title")} {...field} />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="description"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{t("todo-forms.desc")}</FormLabel>
+                <FormControl>
+                  <Input placeholder={t("todo-forms.desc")} {...field} />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="priority"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{t("todo-forms.prio")}</FormLabel>
+                <FormControl>
+                  <Select onValueChange={field.onChange} value={field.value}>
+                    <SelectTrigger>
+                      <SelectValue placeholder={t("todo-forms.prio-sel")} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="low">{t("todo-forms.low")}</SelectItem>
+                      <SelectItem value="medium">
+                        {t("todo-forms.medium")}
+                      </SelectItem>
+                      <SelectItem value="high">
+                        {t("todo-forms.high")}
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="tags"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{t("todo-forms.tags")}</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder={t("todo-forms.tags")}
+                    {...field}
+                    onChange={(e) =>
+                      field.onChange(
+                        e.target.value.split(",").map((tag) => tag.trim())
+                      )
+                    }
+                  />
+                </FormControl>
+                <FormDescription>{t("todo-forms.tags-p")}</FormDescription>
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="dueDate"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{t("todo-forms.date")}</FormLabel>
+                <FormControl>
+                  <Input
+                    type="date"
+                    placeholder={t("todo-forms.date")}
+                    {...field}
+                    value={
+                      field.value
+                        ? new Date(field.value).toISOString().split("T")[0]
+                        : ""
+                    }
+                    onChange={(e) =>
+                      field.onChange(
+                        e.target.value ? new Date(e.target.value) : undefined
+                      )
+                    }
+                  />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="estimatedTime"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{t("todo-forms.estimated")}</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder={t("todo-forms.estimated")}
+                    {...field}
+                    onChange={(e) => field.onChange(parseFloat(e.target.value))}
+                  />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="actualTimeSpent"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{t("todo-forms.actual")}</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder={t("todo-forms.actual")}
+                    {...field}
+                    value={field.value}
+                    onChange={(e) => field.onChange(parseFloat(e.target.value))}
+                  />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+          <div className="pt-3 pb-3">
+            <FormField
+              control={form.control}
+              name="completed"
+              render={({ field }) => (
+                <FormItem>
+                  <div className="flex gap-1 items-center">
+                    <FormLabel>{t("todo-forms.completed")}</FormLabel>
                     <FormControl>
                       <Checkbox
                         checked={field.value}
                         onCheckedChange={(checked) => field.onChange(checked)}
                       />
                     </FormControl>
-                  </FormItem>
-                )}
-              />
-              <Button type="submit">Add Todo</Button>
-            </form>
-          </Form>
-        </CardContent>
-      </Card>
-    </>
+                  </div>
+                </FormItem>
+              )}
+            />
+          </div>
+          <Button className="w-full" type="submit">
+            {t("index.add-todo")}
+          </Button>
+        </form>
+      </Form>
+    </div>
   );
 };
 

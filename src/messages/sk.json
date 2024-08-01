@@ -1,4 +1,63 @@
 {
-  "test": "Slovencina",
-  "list-select": "Vyber si zoznam"
+  "global": {
+    "title": "Zoznam úloh",
+    "loading": "Načítanie...",
+    "Error": "Chyba",
+    "system": "systém",
+    "dark": "Tmavý",
+    "light": "Svetlo"
+  },
+  "index": {
+    "manage-lists": "Spravovať zoznamy",
+    "manage-lists-p": "Tu vykonajte zmeny vo svojich zoznamoch. ",
+    "add-todo": "Pridať úlohu",
+    "add-todo-p": "Vytvorte si Todo"
+  },
+  "list-select": {
+    "p": "Vyberte zoznam"
+  },
+  "list-manager": {
+    "no-lists": "Neboli vytvorené žiadne zoznamy.",
+    "error": "Chyba pri odstraňovaní zoznamu:",
+    "create": "Vytvoriť zoznam",
+    "add": "Pridať nový zoznam",
+    "name": "názov",
+    "name-p": "Toto je názov vášho nového zoznamu.",
+    "add-list": "Pridať zoznam"
+  },
+  "todo-list": {
+    "edit": "Upraviť Todo",
+    "edit-p": "Upravte svoje Todo",
+    "manage": "Spravovať Todos",
+    "desc": "Popis:",
+    "no-desc": "Nebol poskytnutý žiadny popis.",
+    "completed": "Dokončené",
+    "incompleted": "Nedokončené",
+    "prio": "Priorita:",
+    "tags": "Značky:",
+    "time": "Odhadovaný/skutočný čas:",
+    "date": "Do dátumu:",
+    "no-date": "Bez dátumu",
+    "mark-com": "Označiť ako dokončené",
+    "mark-in": "Označiť ako nedokončené",
+    "no-todos": "Do vybraného zoznamu nepatria žiadne úlohy.",
+    "none": "žiadne"
+  },
+  "todo-forms": {
+    "title": "Názov",
+    "desc": "Popis",
+    "prio": "Priorita",
+    "prio-sel": "Vyberte prioritu",
+    "tags": "Tagy",
+    "tags-p": "Tagy oddeľte čiarkami",
+    "date": "Do dátumu",
+    "estimated": "Predpokladaný čas",
+    "actual": "Skutočne strávený čas",
+    "completed": "Dokončené",
+    "update": "Aktualizovať",
+    "cancel": "Zrušiť",
+    "low": "Nízka",
+    "medium": "Stredná",
+    "high": "Vysoká"
+  }
 }

@@ -29,14 +29,14 @@ const ListSelector = ({ onSelect }: ListSelectorProps) => {
 
   const t = useTranslations();
 
-  if (isPending) return <p>Loading...</p>;
-  if (isError) return <p>Error fetching lists</p>;
+  if (isPending) return <p>{t("global.loading")}</p>;
+  if (isError) return <p>{t("global.error")}</p>;
 
   return (
     <div className="w-full max-w-xs ">
       <Select onValueChange={(value) => onSelect(Number(value))}>
         <SelectTrigger>
-          <SelectValue placeholder={t("list-select")} />
+          <SelectValue placeholder={t("list-select.p")} />
         </SelectTrigger>
 
         <SelectContent className="max-h-[200px]">

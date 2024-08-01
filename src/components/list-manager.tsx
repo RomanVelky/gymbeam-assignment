@@ -18,12 +18,14 @@ import { List } from "@/types/mockapi-types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Trash } from "lucide-react";
 import { useForm } from "react-hook-form";
+import { useTranslations } from "next-intl";
 
 interface ListManagerProps {
   lists: List[];
 }
 
 const ListManager = ({ lists }: ListManagerProps) => {
+  const t = useTranslations();
   const {
     mutate: deleteList,
     isPending: isDeleting,
@@ -50,8 +52,7 @@ const ListManager = ({ lists }: ListManagerProps) => {
     try {
       addList({ name: values.username });
       form.reset();
-    } catch (error) {
-      console.error("Error adding list:", error);
+    } catch {
       form.reset();
     }
   };
@@ -59,7 +60,7 @@ const ListManager = ({ lists }: ListManagerProps) => {
     <div>
       <ScrollArea className="h-[200px] sm:max-w-[250px] lg:max-w-[400px] rounded-md border p-4">
         {lists.length === 0 ? (
-          <p className="text-center">No lists were created.</p>
+          <p className="text-center">{t("list-manager.no-lists")}</p>
         ) : (
           <ul className="flex flex-col gap-y-2">
             {lists.map((list) => (
@@ -80,13 +81,14 @@ const ListManager = ({ lists }: ListManagerProps) => {
       </ScrollArea>
       {deleteError && (
         <p className="text-red-500">
-          Error deleting list: {deleteError.message}
+          {t("list-manager.error")}
+          {deleteError.message}
         </p>
       )}
       <div className="pt-6">
         <Card className="sm:max-w-[250px] lg:max-w-[400px]">
           <CardHeader>
-            <CardTitle>Create List</CardTitle>
+            <CardTitle> {t("list-manager.create")}</CardTitle>
           </CardHeader>
           <CardContent>
             <Form {...form}>
@@ -98,19 +100,22 @@ const ListManager = ({ lists }: ListManagerProps) => {
                   name="username"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Add new list</FormLabel>
+                      <FormLabel> {t("list-manager.add")}</FormLabel>
                       <FormControl>
-                        <Input placeholder="Name" {...field} />
+                        <Input
+                          placeholder={t("list-manager.name")}
+                          {...field}
+                        />
                       </FormControl>
                       <FormDescription>
-                        This is name for your new list.
+                        {t("list-manager.name-p")}
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
                 <Button type="submit" disabled={isAdding}>
-                  Add List
+                  {t("list-manager.add-list")}
                 </Button>
               </form>
             </Form>

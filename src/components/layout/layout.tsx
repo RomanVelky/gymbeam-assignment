@@ -1,7 +1,8 @@
 import { useTheme } from "next-themes";
 import Head from "next/head";
-import { createContext, ReactNode, useEffect, useState } from "react";
+import { createContext, ReactNode, use, useEffect, useState } from "react";
 import Header from "./header";
+import { useTranslations } from "next-intl";
 
 type LayoutProps = {
   children: ReactNode;
@@ -20,6 +21,7 @@ export const LayoutContext = createContext<LayoutContextProps>({
 const Layout = ({ children }: LayoutProps) => {
   const { resolvedTheme, setTheme } = useTheme();
   const [selectedListId, setSelectedListId] = useState<number | null>(null);
+  const t = useTranslations();
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
@@ -33,7 +35,7 @@ const Layout = ({ children }: LayoutProps) => {
   return (
     <LayoutContext.Provider value={{ selectedListId, setSelectedListId }}>
       <Head>
-        <title>Todo List App</title>
+        <title>{t("global.title")}</title>
       </Head>
       <div className={`theme-${resolvedTheme}`} suppressHydrationWarning>
         <Header />

@@ -1,4 +1,63 @@
 {
-  "test": "English",
-  "list-select": "Select a list"
+  "global": {
+    "title": "Todo List App",
+    "loading": "Loading...",
+    "Error": "Error",
+    "system": "System",
+    "dark": "Dark",
+    "light": "Light"
+  },
+  "index": {
+    "manage-lists": "Manage Lists",
+    "manage-lists-p": "Make changes to your lists here. Click exit when you are done.",
+    "add-todo": "Add Todo",
+    "add-todo-p": "Make your Todo"
+  },
+  "list-select": {
+    "p": "Select List"
+  },
+  "list-manager": {
+    "no-lists": "No lists were created.",
+    "error": "Error deleting list:",
+    "create": "Create List",
+    "add": "Add new list",
+    "name": "Name",
+    "name-p": "This is name for your new list.",
+    "add-list": "Add List"
+  },
+  "todo-list": {
+    "edit": "Edit Todo",
+    "edit-p": "Edit your Todo",
+    "manage": "Manage Todos",
+    "desc": "Description:",
+    "no-desc": "No description provided.",
+    "completed": "Completed",
+    "incompleted": "Incompleted",
+    "prio": "Priority:",
+    "tags": "Tags:",
+    "time": "Estimated/Actual time:",
+    "date": "Due Date:",
+    "no-date": "No date",
+    "mark-com": "Mark completed",
+    "mark-in": "Mark incompleted",
+    "no-todos": "No todos belon to selected list.",
+    "none": "None"
+  },
+  "todo-forms": {
+    "title": "Title",
+    "desc": "Description",
+    "prio": "Priority",
+    "prio-sel": "Select priority",
+    "tags": "Tags",
+    "tags-p": "Separate tags with commas",
+    "date": "Due Date",
+    "estimated": "Estimated time",
+    "actual": "Actual time spent",
+    "completed": "Completed",
+    "update": "Update Todo",
+    "cancel": "Cancel",
+    "low": "Low",
+    "medium": "Medium",
+    "high": "High"
+  }
 }
