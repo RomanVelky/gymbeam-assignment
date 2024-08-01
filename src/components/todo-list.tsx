@@ -18,6 +18,13 @@ import {
   X,
   Trash,
 } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "./ui/dialog";
 
 interface TodoListProps {
   listId: number;
@@ -68,15 +75,26 @@ const TodoList: React.FC<TodoListProps> = ({ listId }) => {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full text-center">
       {editingTodo ? (
-        <EditTodo todo={editingTodo} onCancel={handleCancelEdit} />
+        <Dialog open={true} onOpenChange={handleCancelEdit}>
+          <DialogContent className="max-w-[300px] sm:max-w-[300px] lg:max-w-[450px] max-h-screen lg:max-h-fit overflow-auto rounded-lg">
+            <DialogHeader>
+              <DialogTitle>Edit Todo</DialogTitle>
+              <DialogDescription>Edit your Todo</DialogDescription>
+            </DialogHeader>
+            <div className=" py-4">
+              <div className=" items-center ">
+                <EditTodo todo={editingTodo} onCancel={handleCancelEdit} />
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
       ) : (
-        <Card className="w-full">
-          <CardHeader>
-            <CardTitle>Manage TODOS</CardTitle>
-          </CardHeader>
-          <CardContent>
+        <div>
+          <div className="text-center pt-4 pb-6 text-6xl">Manage Todos</div>
+
+          <div>
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 h-max w-full">
               {filteredTodos.length > 0 ? (
                 filteredTodos.map((todo) => (
@@ -181,8 +199,8 @@ const TodoList: React.FC<TodoListProps> = ({ listId }) => {
                 <div>No todos available for this list.</div>
               )}
             </ul>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       )}
     </div>
   );

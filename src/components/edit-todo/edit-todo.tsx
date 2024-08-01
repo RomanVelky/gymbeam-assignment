@@ -80,9 +80,6 @@ const EditTodo = ({ todo, onCancel }: EditTodoProps) => {
       <CardContent>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-1">
-            <h3 className="text-2xl font-semibold leading-none tracking-tight pt-6">
-              Edit TODO
-            </h3>
             <FormField
               control={form.control}
               name="title"
@@ -161,7 +158,7 @@ const EditTodo = ({ todo, onCancel }: EditTodoProps) => {
                       placeholder="dueDate"
                       {...field}
                       value={
-                        field.value
+                        field.value && !isNaN(new Date(field.value).getTime())
                           ? new Date(field.value).toISOString().split("T")[0]
                           : ""
                       }

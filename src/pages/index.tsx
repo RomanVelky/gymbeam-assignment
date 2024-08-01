@@ -30,10 +30,13 @@ const Home = () => {
   if (isError) return <h1>Error</h1>;
   return (
     <main className="min-h-svh flex flex-col items-center gap-y-4">
-      <div className="flex gap-4 justify-center">
+      <div className="max-w-xs min-w-full flex justify-center">
+        <ListSelector onSelect={handleSelect} />
+      </div>
+      <div className="grid grid-cols-2 gap-4 justify-center max-w-xs w-full">
         <Dialog>
           <DialogTrigger asChild>
-            <Button>Manage Lists</Button>
+            <Button className="w-full">Manage Lists</Button>
           </DialogTrigger>
           <DialogContent className="max-w-[300px] sm:max-w-[300px] lg:max-w-[450px] overflow-auto lg:max-h-fit max-h-screen rounded-lg">
             <DialogHeader>
@@ -52,7 +55,7 @@ const Home = () => {
 
         <Dialog>
           <DialogTrigger asChild>
-            <Button>Add Todo</Button>
+            <Button className="w-full">Add Todo</Button>
           </DialogTrigger>
           <DialogContent className="max-w-[300px] sm:max-w-[300px] lg:max-w-[450px] max-h-screen lg:max-h-fit overflow-auto rounded-lg">
             <DialogHeader>
@@ -67,8 +70,6 @@ const Home = () => {
           </DialogContent>
         </Dialog>
       </div>
-
-      <ListSelector onSelect={handleSelect} />
 
       <TodoList listId={selectedListId ?? 1} />
     </main>
