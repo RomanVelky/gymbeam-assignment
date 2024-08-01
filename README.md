@@ -1,4 +1,4 @@
-## Gymbeam assignment (todo app) Started
+## Gymbeam assignment (todo app)
 
 ### Author -> Roman Velky
 
