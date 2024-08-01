@@ -1,6 +1,6 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/api-service";
 import { Todo } from "@/types/mockapi-types";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 interface UpdateTodoArgs {
   todoId: number;

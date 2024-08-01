@@ -1,6 +1,6 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/api-service";
 import { Todo } from "@/types/mockapi-types";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const addTodo = async (data: Omit<Todo, "id">): Promise<Todo> => {
   const response = await api.post<Todo>("/todos", data);

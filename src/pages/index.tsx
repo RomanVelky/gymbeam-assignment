@@ -1,9 +1,8 @@
-import { GetStaticProps } from "next";
-import { useTranslations } from "next-intl";
-import { useGetList } from "@/hooks/api/useGetLists";
-import { Button } from "@/components/ui/button";
+import AddTodo from "@/components/add-todo/add-todo";
 import ListManager from "@/components/list-manager";
-import { useState } from "react";
+import ListSelector from "@/components/list-selector";
+import TodoList from "@/components/todo-list";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -12,9 +11,10 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import ListSelector from "@/components/list-selector";
-import AddTodo from "@/components/add-todo/add-todo";
-import TodoList from "@/components/todo-list";
+import { useGetList } from "@/hooks/api/useGetLists";
+import { GetStaticProps } from "next";
+import { useTranslations } from "next-intl";
+import { useState } from "react";
 
 const Home = () => {
   const t = useTranslations();
@@ -22,7 +22,6 @@ const Home = () => {
   const [selectedListId, setSelectedListId] = useState<number | null>(null);
 
   const handleSelect = (listId: number) => {
-    console.log("Selected list ID:", listId);
     setSelectedListId(listId);
   };
 

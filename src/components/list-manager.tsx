@@ -1,9 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Trash } from "lucide-react";
-import { useDeleteList } from "@/hooks/api/useDeleteList";
-import { useAddList } from "@/hooks/api/useAddList";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Form,
   FormControl,
@@ -14,18 +10,20 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { List } from "@/types/mockapi-types";
-import { useQueryClient } from "@tanstack/react-query";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { listSchema, ListSchema } from "@/schemas/list.schema";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { useAddList } from "@/hooks/api/useAddList";
+import { useDeleteList } from "@/hooks/api/useDeleteList";
+import { listSchema, ListSchema } from "@/schemas/list.schema";
+import { List } from "@/types/mockapi-types";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Trash } from "lucide-react";
+import { useForm } from "react-hook-form";
 
 interface ListManagerProps {
   lists: List[];
 }
 
 const ListManager = ({ lists }: ListManagerProps) => {
-  const queryClient = useQueryClient();
   const {
     mutate: deleteList,
     isPending: isDeleting,

@@ -1,6 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
 import { api } from "@/lib/api-service";
 import { List } from "@/types/mockapi-types";
+import { useQuery } from "@tanstack/react-query";
 
 export const useGetList = () => {
   return useQuery({
@@ -11,5 +11,3 @@ export const useGetList = () => {
     },
   });
 };
-
-//spravit ak zostane cas schemy

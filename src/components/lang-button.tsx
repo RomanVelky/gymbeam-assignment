@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -7,6 +6,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Globe } from "lucide-react";
+import { useRouter } from "next/router";
 
 const languages = [
   {

@@ -1,5 +1,5 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/api-service";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const deleteTodo = async (todoId: number): Promise<void> => {
   await api.delete<void>(`/todos/${todoId}`);

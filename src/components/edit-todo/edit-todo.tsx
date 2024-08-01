@@ -1,19 +1,15 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { todoSchema, TodoFormData } from "../add-todo/add-todo.schema";
 import { Card, CardContent } from "@/components/ui/card";
-import { useGetTodoById } from "@/hooks/api/useGetTodoById";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
-  FormDescription,
 } from "@/components/ui/form";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -23,6 +19,9 @@ import {
 } from "@/components/ui/select";
 import { useUpdateTodo } from "@/hooks/api/useUpdateTodo";
 import { Todo } from "@/types/mockapi-types";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { TodoFormData, todoSchema } from "../add-todo/todo.schema";
 
 interface EditTodoProps {
   todo: Todo;

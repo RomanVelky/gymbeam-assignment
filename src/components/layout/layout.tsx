@@ -1,6 +1,6 @@
 import { useTheme } from "next-themes";
 import Head from "next/head";
-import { ReactNode, useEffect, useState, createContext } from "react";
+import { createContext, ReactNode, useEffect, useState } from "react";
 import Header from "./header";
 
 type LayoutProps = {

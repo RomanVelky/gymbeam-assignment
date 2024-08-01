@@ -1,6 +1,3 @@
-import { useQuery } from "@tanstack/react-query";
-import { api } from "@/lib/api-service";
-import { List } from "@/types/mockapi-types";
 import {
   Select,
   SelectContent,
@@ -8,6 +5,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { api } from "@/lib/api-service";
+import { List } from "@/types/mockapi-types";
+import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 
 interface ListSelectorProps {

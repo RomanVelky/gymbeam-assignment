@@ -1,23 +1,23 @@
-import { useGetTodos } from "@/hooks/api/useGetTodos";
+import { Card, CardContent } from "@/components/ui/card";
 import { useDeleteTodo } from "@/hooks/api/useDeleteTodo";
+import { useGetTodos } from "@/hooks/api/useGetTodos";
 import { useUpdateTodo } from "@/hooks/api/useUpdateTodo";
 import { Todo } from "@/types/mockapi-types";
-import { Button } from "./ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Calendar,
+  Check,
+  Clock,
+  Gauge,
+  NotebookText,
+  Pen,
+  Tag,
+  Trash,
+  X,
+} from "lucide-react";
 import { useState } from "react";
 import EditTodo from "./edit-todo/edit-todo";
-import { Calendar } from "lucide-react";
 import { Badge } from "./ui/badge";
-import {
-  NotebookText,
-  Gauge,
-  Tag,
-  Clock,
-  Check,
-  Pen,
-  X,
-  Trash,
-} from "lucide-react";
+import { Button } from "./ui/button";
 import {
   Dialog,
   DialogContent,
@@ -43,24 +43,20 @@ const TodoList: React.FC<TodoListProps> = ({ listId }) => {
   const filteredTodos = todos.filter((todo) => todo.listId === listId);
 
   const handleDeleteTodo = async (todoId: number) => {
-    console.log("Delete todo clicked", todoId);
     try {
       deleteTodo(todoId);
-      console.log("Todo deleted successfully");
     } catch (error) {
       console.error("Error deleting todo:", error);
     }
   };
 
   const handleCompletedChangeClick = (todo: Todo) => {
-    console.log("Edit todo clicked", todo);
     const updateArgs = {
       todoId: todo.id,
       data: { completed: !todo.completed },
     };
     try {
       updateTodo(updateArgs);
-      console.log("Todo updated successfully");
     } catch (error) {
       console.error("Error updating todo:", error);
     }
