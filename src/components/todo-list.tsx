@@ -26,6 +26,7 @@ import {
   DialogTitle,
 } from "./ui/dialog";
 import { useTranslations } from "next-intl";
+import useDateFormatter from "@/hooks/useDateFormatter";
 
 interface TodoListProps {
   listId: number;
@@ -36,6 +37,7 @@ const TodoList: React.FC<TodoListProps> = ({ listId }) => {
   const { mutate: deleteTodo } = useDeleteTodo();
   const { mutate: updateTodo } = useUpdateTodo();
   const t = useTranslations();
+  const { formatDate } = useDateFormatter();
 
   const [editingTodo, setEditingTodo] = useState<Todo | null>(null);
 
@@ -108,7 +110,8 @@ const TodoList: React.FC<TodoListProps> = ({ listId }) => {
                         <div
                           className={`text-sm ${
                             todo.completed ? "text-green-500" : "text-red-500"
-                          }`}>
+                          }`}
+                        >
                           {todo.completed ? (
                             <div className="text-sm flex gap-1 items-center justify-center">
                               <Check />
@@ -145,21 +148,17 @@ const TodoList: React.FC<TodoListProps> = ({ listId }) => {
                         <div className="text-sm flex gap-1 justify-center items-center">
                           <Calendar />
                           <strong>{t("todo-list.date")}</strong>
+                          <strong>{t("todo-list.date")}</strong>
                           {todo.dueDate
-                            ? typeof todo.dueDate === "string"
-                              ? new Date(todo.dueDate).toLocaleDateString()
-                              : todo.dueDate instanceof Date
-                              ? todo.dueDate.toLocaleDateString()
-                              : t("todo-list.no-date")
+                            ? formatDate(todo.dueDate)
                             : t("todo-list.no-date")}
                         </div>
                         <div className="flex justify-center align-end">
                           <div>
                             <div className="py-2 px-4">
                               <Button
-                                onClick={() =>
-                                  handleCompletedChangeClick(todo)
-                                }>
+                                onClick={() => handleCompletedChangeClick(todo)}
+                              >
                                 {todo.completed ? (
                                   <div className="flex gap-1 justify-center items-center">
                                     <X />
@@ -176,12 +175,14 @@ const TodoList: React.FC<TodoListProps> = ({ listId }) => {
                             <div className="px-4 flex gap-2">
                               <Button
                                 className="w-1/2"
-                                onClick={() => handleEditClick(todo)}>
+                                onClick={() => handleEditClick(todo)}
+                              >
                                 <Pen />
                               </Button>
                               <Button
                                 className="w-1/2"
-                                onClick={() => handleDeleteTodo(todo.id)}>
+                                onClick={() => handleDeleteTodo(todo.id)}
+                              >
                                 <Trash />
                               </Button>
                             </div>

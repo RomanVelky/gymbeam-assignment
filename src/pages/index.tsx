@@ -27,6 +27,7 @@ const Home = () => {
 
   if (isPending) return <h1>{t("global.loading")}</h1>;
   if (isError) return <h1>{t("global.error")}</h1>;
+
   return (
     <main className="min-h-svh flex flex-col items-center gap-y-4">
       <div className="text-center pt-4 pb-6 text-6xl">
