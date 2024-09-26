@@ -21,7 +21,7 @@ import { useUpdateTodo } from "@/hooks/api/useUpdateTodo";
 import { Todo } from "@/types/mockapi-types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { TodoFormData, todoSchema } from "../add-todo/todo.schema";
+import { TodoFormData, todoSchema } from "../../schemas/todo.schema";
 import { useTranslations } from "next-intl";
 
 interface EditTodoProps {

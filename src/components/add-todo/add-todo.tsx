@@ -20,7 +20,7 @@ import {
 import { useAddTodo } from "@/hooks/api/useAddTodo";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { TodoFormData, todoSchema } from "./todo.schema";
+import { TodoFormData, todoSchema } from "../../schemas/todo.schema";
 import { useTranslations } from "next-intl";
 
 interface AddTodoProps {

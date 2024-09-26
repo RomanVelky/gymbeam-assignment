@@ -33,7 +33,7 @@ const ListSelector = ({ onSelect }: ListSelectorProps) => {
   if (isError) return <p>{t("global.error")}</p>;
 
   return (
-    <div className="w-full max-w-xs ">
+    <div className="w-full max-w-xs">
       <Select onValueChange={(value) => onSelect(Number(value))}>
         <SelectTrigger>
           <SelectValue placeholder={t("list-select.p")} />

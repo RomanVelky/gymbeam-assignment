@@ -14,17 +14,19 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <NextIntlClientProvider
       locale={router.locale}
-      messages={pageProps.messages}>
+      messages={pageProps.messages}
+    >
       <ThemeProvider
         attribute="class"
         defaultTheme="system"
         enableSystem
-        disableTransitionOnChange>
+        disableTransitionOnChange
+      >
         <QueryClientProvider client={queryClient}>
           <Layout>
             <Component {...pageProps} />
           </Layout>
-          {/* <ReactQueryDevtools /> */}
+          <ReactQueryDevtools />
         </QueryClientProvider>
       </ThemeProvider>
     </NextIntlClientProvider>
