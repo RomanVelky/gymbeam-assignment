@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   Form,
@@ -24,10 +23,10 @@ import { useForm } from "react-hook-form";
 import { TodoFormData, todoSchema } from "../../schemas/todo.schema";
 import { useTranslations } from "next-intl";
 
-interface EditTodoProps {
+type EditTodoProps = {
   todo: Todo;
   onCancel: () => void;
-}
+};
 
 const EditTodo = ({ todo, onCancel }: EditTodoProps) => {
   const t = useTranslations();

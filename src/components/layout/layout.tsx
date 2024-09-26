@@ -8,10 +8,10 @@ type LayoutProps = {
   children: ReactNode;
 };
 
-interface LayoutContextProps {
+type LayoutContextProps = {
   selectedListId: number | null;
   setSelectedListId: (id: number | null) => void;
-}
+};
 
 export const LayoutContext = createContext<LayoutContextProps>({
   selectedListId: null,

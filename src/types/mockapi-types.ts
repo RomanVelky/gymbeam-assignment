@@ -1,16 +1,16 @@
-export interface List {
+export type List = {
   id: number;
   name: string;
-}
+};
 
-export interface Comment {
+export type Comment = {
   id: number;
   text: string;
   author: string;
   createdAt: Date;
-}
+};
 
-export interface Todo {
+export type Todo = {
   id: number;
   title: string;
   description?: string;
@@ -22,4 +22,4 @@ export interface Todo {
   actualTimeSpent?: number;
   comments?: Comment[];
   listId: number;
-}
+};

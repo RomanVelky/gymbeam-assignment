@@ -22,10 +22,10 @@ import { useForm } from "react-hook-form";
 import { TodoFormData, todoSchema } from "../../schemas/todo.schema";
 import { useTranslations } from "next-intl";
 
-interface AddTodoProps {
+type AddTodoProps = {
   listId: number;
   clearEdit?: () => void;
-}
+};
 
 const AddTodo = ({ listId, clearEdit }: AddTodoProps) => {
   const t = useTranslations();

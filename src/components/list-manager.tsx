@@ -20,9 +20,9 @@ import { Trash } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { useTranslations } from "next-intl";
 
-interface ListManagerProps {
+type ListManagerProps = {
   lists: List[];
-}
+};
 
 const ListManager = ({ lists }: ListManagerProps) => {
   const t = useTranslations();
@@ -56,6 +56,7 @@ const ListManager = ({ lists }: ListManagerProps) => {
       form.reset();
     }
   };
+
   return (
     <div>
       <ScrollArea className="h-[200px] sm:max-w-[250px] lg:max-w-[400px] rounded-md border p-4">
@@ -66,12 +67,14 @@ const ListManager = ({ lists }: ListManagerProps) => {
             {lists.map((list) => (
               <li
                 key={list.id}
-                className="flex items-center justify-between p-2">
+                className="flex items-center justify-between p-2"
+              >
                 <span>{list.name}</span>
                 <Button
                   onClick={() => handleDelete(list.id)}
                   disabled={isDeleting}
-                  className="ml-2">
+                  className="ml-2"
+                >
                   <Trash />
                 </Button>
               </li>
@@ -94,7 +97,8 @@ const ListManager = ({ lists }: ListManagerProps) => {
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-8">
+                className="space-y-8"
+              >
                 <FormField
                   control={form.control}
                   name="username"

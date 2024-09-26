@@ -2,10 +2,10 @@ import { api } from "@/lib/api-service";
 import { Todo } from "@/types/mockapi-types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-interface UpdateTodoArgs {
+type UpdateTodoArgs = {
   todoId: number;
   data: Partial<Omit<Todo, "id">>;
-}
+};
 
 const updateTodo = async ({ todoId, data }: UpdateTodoArgs): Promise<Todo> => {
   const response = await api.put<Todo>(`/todos/${todoId}`, data);

@@ -28,9 +28,9 @@ import {
 import { useTranslations } from "next-intl";
 import useDateFormatter from "@/hooks/useDateFormatter";
 
-interface TodoListProps {
+type TodoListProps = {
   listId: number;
-}
+};
 
 const TodoList: React.FC<TodoListProps> = ({ listId }) => {
   const { data: todos = [], isPending, isError } = useGetTodos();

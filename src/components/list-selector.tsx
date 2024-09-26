@@ -10,9 +10,9 @@ import { List } from "@/types/mockapi-types";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 
-interface ListSelectorProps {
+type ListSelectorProps = {
   onSelect: (listId: number) => void;
-}
+};
 
 const ListSelector = ({ onSelect }: ListSelectorProps) => {
   const {
