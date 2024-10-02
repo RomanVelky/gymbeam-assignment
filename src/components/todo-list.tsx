@@ -26,7 +26,7 @@ import {
   DialogTitle,
 } from "./ui/dialog";
 import { useTranslations } from "next-intl";
-import useDateFormatter from "@/hooks/useDateFormatter";
+import { format } from "date-fns";
 
 type TodoListProps = {
   listId: number;
@@ -37,7 +37,6 @@ const TodoList: React.FC<TodoListProps> = ({ listId }) => {
   const { mutate: deleteTodo } = useDeleteTodo();
   const { mutate: updateTodo } = useUpdateTodo();
   const t = useTranslations();
-  const { formatDate } = useDateFormatter();
 
   const [editingTodo, setEditingTodo] = useState<Todo | null>(null);
 
@@ -147,10 +146,10 @@ const TodoList: React.FC<TodoListProps> = ({ listId }) => {
                         </div>
                         <div className="text-sm flex gap-1 justify-center items-center">
                           <Calendar />
-                          <strong>{t("todo-list.date")}</strong>
+
                           <strong>{t("todo-list.date")}</strong>
                           {todo.dueDate
-                            ? formatDate(todo.dueDate)
+                            ? format(todo.dueDate, "dd/MM/yyyy")
                             : t("todo-list.no-date")}
                         </div>
                         <div className="flex justify-center align-end">

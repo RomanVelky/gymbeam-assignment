@@ -21,6 +21,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { TodoFormData, todoSchema } from "../../schemas/todo.schema";
 import { useTranslations } from "next-intl";
+import { format, parseISO } from "date-fns";
 
 type AddTodoProps = {
   listId: number;
@@ -154,12 +155,12 @@ const AddTodo = ({ listId, clearEdit }: AddTodoProps) => {
                     {...field}
                     value={
                       field.value
-                        ? new Date(field.value).toISOString().split("T")[0]
+                        ? format(new Date(field.value), "yyyy-MM-dd")
                         : ""
                     }
                     onChange={(e) =>
                       field.onChange(
-                        e.target.value ? new Date(e.target.value) : undefined
+                        e.target.value ? parseISO(e.target.value) : undefined
                       )
                     }
                   />
