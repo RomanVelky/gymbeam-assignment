@@ -5,7 +5,10 @@
     "Error": "Chyba",
     "system": "systém",
     "dark": "Tmavý",
-    "light": "Svetlo"
+    "light": "Svetlo",
+    "close": "Zavrieť",
+    "choose-lang": "Vybrať jazyk",
+    "toggle-theme": "Zmeniť tému"
   },
   "index": {
     "manage-lists": "Spravovať zoznamy",

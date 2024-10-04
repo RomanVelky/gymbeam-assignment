@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Globe } from "lucide-react";
 import { useRouter } from "next/router";
+import { useTranslations } from "next-intl";
 
 const languages = [
   {
@@ -25,6 +26,7 @@ const languages = [
 
 const LangButton = () => {
   const router = useRouter();
+  const t = useTranslations();
 
   const handleLanguageChange = (newLocale: string) => {
     router.push(router.pathname, router.asPath, { locale: newLocale });
@@ -35,7 +37,7 @@ const LangButton = () => {
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="icon">
           <Globe className="w-6 h-6" />
-          <span className="sr-only">Choose Language</span>
+          <span className="sr-only">{t("global.choose-lang")}</span>
         </Button>
       </DropdownMenuTrigger>
 
@@ -43,7 +45,8 @@ const LangButton = () => {
         {languages.map(({ code, label, flagSrc }) => (
           <DropdownMenuItem
             key={code}
-            onClick={() => handleLanguageChange(code)}>
+            onClick={() => handleLanguageChange(code)}
+          >
             <div className="flex gap-2">
               <img className="w-6 h-5" alt="country flag" src={flagSrc} />
               {label}

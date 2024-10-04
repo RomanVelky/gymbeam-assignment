@@ -5,7 +5,10 @@
     "Error": "Error",
     "system": "System",
     "dark": "Dark",
-    "light": "Light"
+    "light": "Light",
+    "close": "Close",
+    "choose-lang": "Choose language",
+    "toggle-theme": "Toggle theme"
   },
   "index": {
     "manage-lists": "Manage Lists",
