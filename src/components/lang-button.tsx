@@ -8,6 +8,7 @@ import {
 import { Globe } from "lucide-react";
 import { useRouter } from "next/router";
 import { useTranslations } from "next-intl";
+import Image from "next/image";
 
 const languages = [
   {
@@ -48,7 +49,13 @@ const LangButton = () => {
             onClick={() => handleLanguageChange(code)}
           >
             <div className="flex gap-2">
-              <img className="w-6 h-5" alt="country flag" src={flagSrc} />
+              <Image
+                className="w-6 h-5"
+                alt="country flag"
+                src={flagSrc}
+                width={60}
+                height={60}
+              />
               {label}
             </div>
           </DropdownMenuItem>
