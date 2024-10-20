@@ -20,6 +20,15 @@ const Home = () => {
   const t = useTranslations();
   const { data, isPending, isError } = useGetList();
   const [selectedListId, setSelectedListId] = useState<number | null>(null);
+  const [isDialogOpen, setDialogOpen] = useState(false);
+
+  const handleAddTodoSubmit = () => {
+    setDialogOpen(false);
+  };
+
+  const handleOpenAddTodo = () => {
+    setDialogOpen(true);
+  };
 
   const handleSelect = (listId: number) => {
     setSelectedListId(listId);
@@ -51,9 +60,11 @@ const Home = () => {
           </DialogContent>
         </Dialog>
 
-        <Dialog>
+        <Dialog open={isDialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger asChild>
-            <Button className="w-full">{t("index.add-todo")}</Button>
+            <Button onClick={handleOpenAddTodo} className="w-full">
+              {t("index.add-todo")}
+            </Button>
           </DialogTrigger>
           <DialogContent className="max-w-[300px] sm:max-w-[300px] lg:max-w-[450px] max-h-screen lg:max-h-fit overflow-auto rounded-lg">
             <DialogHeader>
@@ -62,7 +73,10 @@ const Home = () => {
             </DialogHeader>
             <div className=" py-4">
               <div className=" items-center ">
-                <AddTodo listId={selectedListId ?? 1} />
+                <AddTodo
+                  listId={selectedListId ?? 1}
+                  onCancel={handleAddTodoSubmit}
+                />
               </div>
             </div>
           </DialogContent>

@@ -25,10 +25,10 @@ import { format, parseISO } from "date-fns";
 
 type AddTodoProps = {
   listId: number;
-  clearEdit?: () => void;
+  onCancel?: () => void;
 };
 
-const AddTodo = ({ listId, clearEdit }: AddTodoProps) => {
+const AddTodo = ({ listId, onCancel }: AddTodoProps) => {
   const t = useTranslations();
   const form = useForm<TodoFormData>({
     mode: "onChange",
@@ -62,7 +62,7 @@ const AddTodo = ({ listId, clearEdit }: AddTodoProps) => {
 
       addTodo(newTodo);
       form.reset();
-      if (clearEdit) clearEdit();
+      // if (clearEdit) clearEdit();
     } catch (error) {
       console.error("Error submitting todo:", error);
     }
@@ -220,7 +220,7 @@ const AddTodo = ({ listId, clearEdit }: AddTodoProps) => {
               )}
             />
           </div>
-          <Button className="w-full" type="submit">
+          <Button className="w-full" type="submit" onClick={onCancel}>
             {t("index.add-todo")}
           </Button>
         </form>
