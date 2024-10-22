@@ -13,7 +13,6 @@ export const useDeleteTodo = () => {
       console.error("Error deleting todo:", error);
     },
     onSuccess: () => {
-      console.log("Todo deleted successfully");
       queryClient.invalidateQueries({ queryKey: ["todos"] });
     },
   });

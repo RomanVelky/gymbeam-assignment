@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 type UpdateTodoArgs = {
   todoId: number;
-  data: Partial<Omit<Todo, "id">>;
+  data: Partial<Todo>;
 };
 
 const updateTodo = async ({ todoId, data }: UpdateTodoArgs): Promise<Todo> => {
