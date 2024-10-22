@@ -19,6 +19,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Trash } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { useTranslations } from "next-intl";
+import { useQueryClient } from "@tanstack/react-query";
 
 type ListManagerProps = {
   lists: List[];
@@ -26,6 +27,7 @@ type ListManagerProps = {
 
 const ListManager = ({ lists }: ListManagerProps) => {
   const t = useTranslations();
+  const queryClient = useQueryClient();
   const {
     mutate: deleteList,
     isPending: isDeleting,
@@ -50,10 +52,20 @@ const ListManager = ({ lists }: ListManagerProps) => {
 
   const onSubmit = async (values: ListSchema) => {
     try {
-      addList({ name: values.username });
-      form.reset();
-    } catch {
-      form.reset();
+      addList(
+        { name: values.username },
+        {
+          onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["lists"] });
+            form.reset();
+          },
+          onError: (error) => {
+            console.error("Error adding list:", error);
+          },
+        }
+      );
+    } catch (error) {
+      console.error("Unexpected error:", error);
     }
   };
 
